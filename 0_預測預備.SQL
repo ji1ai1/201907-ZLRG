@@ -35,6 +35,7 @@ LEFT OUTER JOIN
 ON 甲.職位描述 == 丙四.職位描述
 ;
 
+
 DROP TABLE IF EXISTS TRAIN_DATA_JD_IN;
 CREATE TABLE TRAIN_DATA_JD_IN AS
 SELECT
@@ -45,6 +46,7 @@ INNER JOIN
     SELECT 用戶標識, ROW_NUMBER() OVER(ORDER BY MD5(CONCAT(用戶標識, "JD"))) % 7 AS 欄0 FROM TRAIN_X GROUP BY 用戶標識
 ) 乙
 ON 甲.用戶標識 == 乙.用戶標識;
+
 
 DROP TABLE IF EXISTS TRAIN_DATA_JD_OUT;
 CREATE TABLE TRAIN_DATA_JD_OUT
@@ -66,8 +68,10 @@ CREATE TABLE TRAIN_DATA_JD_OUT
     , 職2_1 DOUBLE
 );
 
+                                                
 --@resource_reference{"RgExtract.jar"}
 jar -resources RgExtract.jar -classpath ./RgExtract.jar jiangli.rg.rg_extract.RgExtractTrainJd TRAIN_DATA_JD_IN TRAIN_DATA_JD_OUT 7;
+
 
 DROP TABLE IF EXISTS TRAIN_DATA_JD;
 CREATE TABLE TRAIN_DATA_JD AS
@@ -202,6 +206,7 @@ LEFT OUTER JOIN
 ON 甲.職位關鍵詞 == 丁五.職位關鍵詞
 ;
 
+
 DROP TABLE IF EXISTS TEST_X_JD;
 CREATE TABLE TEST_X_JD AS
 SELECT 
@@ -314,8 +319,6 @@ ON 甲.職位關鍵詞 == 丁五.職位關鍵詞
 ;
 
 
-
-
 DROP TABLE IF EXISTS TEST_DATA;
 CREATE TABLE TEST_DATA
 (
@@ -351,6 +354,7 @@ CREATE TABLE TEST_DATA
     , 特268 DOUBLE
 );
 
+
 DROP TABLE IF EXISTS TRAIN_DATA;
 CREATE TABLE TRAIN_DATA
 (
@@ -385,7 +389,6 @@ CREATE TABLE TRAIN_DATA
     , 特256 DOUBLE, 特257 DOUBLE, 特258 DOUBLE, 特259 DOUBLE, 特260 DOUBLE, 特261 DOUBLE, 特262 DOUBLE, 特263 DOUBLE, 特264 DOUBLE, 特265 DOUBLE, 特266 DOUBLE, 特267 DOUBLE
     , 特268 DOUBLE
 );
-
 
 --@resource_reference{"RgExtract.jar"}
 jar -resources RgExtract.jar -classpath ./RgExtract.jar jiangli.rg.rg_extract.RgExtractUser TRAIN_X_JD TRAIN_DATA;
