@@ -12,6 +12,7 @@ PAI
     -Dmin_child_weight=50
 ;
 
+
 DROP TABLE IF EXISTS B_PREDICTION;
 pai -name prediction
     -DmodelName="B_MODEL"
