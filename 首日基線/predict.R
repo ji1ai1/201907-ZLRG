@@ -17,6 +17,3 @@ Prediction = Prediction[, .(user_id, jd_no, score = satisfied_ratio)]
 Prediction = Prediction[order(-score)]
 
 write.csv(Prediction[, .(user_id, jd_no)], "result.csv", row.names = F, quote = F)
-
-
-
